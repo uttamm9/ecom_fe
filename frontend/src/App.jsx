@@ -1,34 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import './App.css'
-
+import UserSignUp from './components/userSignUp'
+import SupplierSignUp from './components/supplierSignUp'
+import Login from './components/login'
+import ForgatePassword from './components/forgate_password'
+import UpdatePassword from './components/update_password'
+import UserView from './components/userView'
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+   <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />}/>
+      <Route path="/usersignup" element={<UserSignUp />}/>
+      <Route path="/suppliersignup" element={<SupplierSignUp />}/>
+      <Route path="/forgetpassword" element={<ForgatePassword/>}/>
+      <Route path="/updatepassword" element={<UpdatePassword/>}/>
+      <Route path="/userview" element={<UserView/>}/>
+    </Routes>
+   </BrowserRouter>
+
   )
 }
 

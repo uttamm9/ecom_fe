@@ -6,6 +6,7 @@ import Login from './components/login'
 import ForgatePassword from './components/forgate_password'
 import UpdatePassword from './components/update_password'
 import UserView from './components/userView'
+import SupplierDashboard from './components/supplierdashboard'
 function App() {
   
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/forgetpassword" element={<ForgatePassword/>}/>
       <Route path="/updatepassword" element={<UpdatePassword/>}/>
       <Route path="/userview" element={<UserView/>}/>
+      <Route path="/supplierdashboard" element={<SupplierDashboard/>}/>
     </Routes>
    </BrowserRouter>
 

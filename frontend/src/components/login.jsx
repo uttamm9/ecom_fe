@@ -19,11 +19,10 @@ const Login = () => {
       role:role
       });
       console.log(res.data);
-      if (res.data.message === 'User login Succesful') {
-      localStorage.setItem('token', res.data.token);
-      navigate('/userview');
-      } else {
-      alert(res.data.message);
+      if(res.data.role === 'user'){
+        navigate('/userview');
+      } else if(res.data.role === 'supplier'){ 
+        navigate('/supplierdashboard');
       }
     } catch (err) {
       console.log(err);

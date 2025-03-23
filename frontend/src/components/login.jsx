@@ -19,6 +19,9 @@ const Login = () => {
       role:role
       });
       console.log(res.data);
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', res.data.role);
+      localStorage.setItem('name', res.data.name);
       if(res.data.role === 'user'){
         navigate('/userview');
       } else if(res.data.role === 'supplier'){ 

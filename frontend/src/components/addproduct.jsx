@@ -45,8 +45,10 @@ const AddProduct = () => {
         }
       });
       console.log(response.data);
+      alert(response.data.message);
     } catch (error) {
       console.log(error);
+      alert('Internal server error');
     }
   };
 

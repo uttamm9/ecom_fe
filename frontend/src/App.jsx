@@ -8,6 +8,7 @@ import UpdatePassword from './components/update_password'
 import UserView from './components/userView'
 import SupplierDashboard from './components/supplierdashboard'
 import AddProduct from './components/addproduct'
+import Single from './components/singleProductPage'
 function App() {
   
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route path="/userview" element={<UserView/>}/>
       <Route path="/supplierdashboard" element={<SupplierDashboard/>}/>
       <Route path='/addproduct' element={<AddProduct/>}/>
+      <Route path='/showSingleProdut/:id' element={<Single/>}/>
+      <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
    </BrowserRouter>
 

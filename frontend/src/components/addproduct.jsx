@@ -9,9 +9,9 @@ const AddProduct = () => {
     category: '',
     description: '',
     brand: '',
-    images: ['', '', '', '', '']
   });
 
+  const [images, setImages] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({
@@ -20,24 +20,33 @@ const AddProduct = () => {
     });
   };
 
-  const handleImageChange = (e, index) => {
-    const files = e.target.files;
-    const newImages = [...product.images];
-    newImages[index] = files[0];
-    setProduct({
-      ...product,
-      images: newImages
-    });
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(files);
   };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(product);
+    const formData = new FormData();
+    Object.keys(product).forEach(key => {
+      formData.append(key, product[key]);
+    });
+    images.forEach((image) => {
+      formData.append('images', image);
+    }
+    );
+
     try {
-      const response = await axios.post('http://localhost:3000/supplier/addproduct',product)
+      const token = localStorage.getItem('token');
+      const response = await axios.post('http://localhost:3000/supplier/addproduct', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization': `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -78,12 +87,11 @@ const AddProduct = () => {
         <label>Brand:</label>
         <input type="text" name="brand" value={product.brand} onChange={handleChange} required />
       </div>
-      {[...Array(5)].map((_, index) => (
-        <div key={index}>
-          <label>Image {index + 1}:</label>
-          <input type="file" onChange={(e) => handleImageChange(e, index)} required />
+      
+        <div>
+          <label>Image :</label>
+          <input type="file" onChange={(e) => handleImageChange(e)} required multiple/>
         </div>
-      ))}
       <button type="submit">Add Product</button>
     </form>
   );

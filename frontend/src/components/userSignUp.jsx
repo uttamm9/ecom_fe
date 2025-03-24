@@ -6,7 +6,7 @@ const UserSignUp = () => {
     name: '',
     email: '',
     password: '',
-    phone: ''
+    phone: '',
   });
 
   const handleChange = (e) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -14,21 +14,21 @@ const UpdatePassword = () => {
       alert("New password and confirm password do not match");
       return;
     }
-  //   axios.patch('http://localhost:7070/API/updatePassword', { newPassword, currentPassword },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`
-  //       }
-  // })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       alert('Password updated successfully');
-  //       navigate('/login');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert('Invalid current password');
-  //     });
+    axios.patch('http://localhost:3000/user/resetPassword', { newPassword, currentPassword },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+  })
+      .then((response) => {
+        console.log(response.data);
+        alert('Password updated successfully');
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Invalid current password');
+      });
   };
 
   return (

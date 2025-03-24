@@ -5,7 +5,7 @@ const userView = () => {
   return (
     <div>
       <h1>User View</h1>
-      <button onClick={()=>navigate('updatepassword')}>Update Password</button>
+      <button onClick={()=>navigate('/updatepassword')}>Update Password</button>
     </div>
   )
 }

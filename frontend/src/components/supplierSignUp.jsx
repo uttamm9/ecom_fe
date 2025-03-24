@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const SupplierSignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     businessName: '',
@@ -12,7 +13,7 @@ const SupplierSignUp = () => {
     gstNo: '',
     category: '',
     aadharCardNo: '',
-    password: ''
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -29,6 +30,8 @@ const SupplierSignUp = () => {
     try {
       const response = await axios.post('http://localhost:3000/supplier/supplierSignup', formData);
       console.log(response);
+      alert(response.data.message);
+      navigate('/');
     } catch (error) {
       console.error(error);
     }

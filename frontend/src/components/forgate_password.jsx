@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 const ForgatePassword = () => {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [otp, setOtp] = useState('');
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (newPassword === confirmPassword) {
+      try {
       // Handle password reset logic here
       console.log('Passwords match. Proceed with password reset.', newPassword);
-      // axios
-      //   .patch('http://localhost:7070/API/forgetPassword', { email, newPassword,otp })
-      //   .then((res) => {
-      //     console.log(res);
-      //     alert(res.data.message)
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     alert(err.response.data.message)
-      //   });
+      const res = await axios.patch('http://localhost:3000/user/forgetPassword', { email, newPassword, otp });
+      console.log(res);
+      alert(res.data.message);
+      } catch (err) {
+      console.log(err);
+      alert(err.response.data.message);
+      }
     } else {
       console.log('Passwords do not match.');
     }
@@ -28,8 +27,8 @@ const ForgatePassword = () => {
 
 const getOTP = async()=>{
   try{
-  // const OTP = await axios.post('http://localhost:7070/API/getOTP',{email})
-  // console.log("OTP",OTP)
+  const OTP = await axios.post('http://localhost:3000/user/getOTP',{email})
+  console.log("OTP",OTP)
  
   }catch(err){
     console.log('otp error',err)

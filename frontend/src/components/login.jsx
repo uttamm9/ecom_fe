@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './navbar';
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -21,11 +22,12 @@ const Login = () => {
       console.log(res.data);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.role);
-      localStorage.setItem('name', res.data.name);
+      localStorage.setItem('name', res.data.username);
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       if(res.data.role === 'user'){
         navigate('/userview');
       } else if(res.data.role === 'supplier'){ 
+        console.log('Supplier',res.data);
         navigate('/supplierdashboard');
       }
     } catch (err) {
@@ -36,6 +38,10 @@ const Login = () => {
   };
 
   return (
+    <>
+    <div>
+   <Navbar />
+   </div>
     <div
       style={{
         background: "white",
@@ -46,6 +52,7 @@ const Login = () => {
         textAlign: "center",
         margin: "auto",
         fontFamily: "Arial, sans-serif",
+        marginTop: "2.2rem",
       }}
     >
       <h2 style={{ color: "#333", marginBottom: "1rem" }}>Login</h2>
@@ -156,6 +163,7 @@ const Login = () => {
       </button>
       <button onClick={() => navigate('/usersignup')}>Signup</button>
     </div>
+    </>
   );
 };
 

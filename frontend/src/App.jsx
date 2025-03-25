@@ -9,6 +9,7 @@ import UserView from './components/userView'
 import SupplierDashboard from './components/supplierdashboard'
 import AddProduct from './components/addproduct'
 import Single from './components/singleProductPage'
+import AddToCart from './components/addTocart'
 function App() {
   
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/supplierdashboard" element={<SupplierDashboard/>}/>
       <Route path='/addproduct' element={<AddProduct/>}/>
       <Route path='/showSingleProdut/:id' element={<Single/>}/>
+      <Route path='/cart' element={<AddToCart/>}/>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
    </BrowserRouter>

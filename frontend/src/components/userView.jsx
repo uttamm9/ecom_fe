@@ -1,6 +1,7 @@
 import React, { useEffect , useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Navbar from './navbar'
 const userView = () => {
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
@@ -23,7 +24,7 @@ const userView = () => {
   }, [])
   return (
     <>
-      <h1>User View</h1>
+      <Navbar islogin= {true} />
       <button onClick={()=>navigate('/updatepassword')}>Update Password</button>
       {products.map((product) => (
 

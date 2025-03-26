@@ -1,21 +1,17 @@
-import React, { useState } from "react";
+import React, { use, useState, useEffect } from "react";
+import axios from "axios";
+import CustomNavbar from './Navbar';
 
+import "./AddToCart.css";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Samsung S25 Ultra",
-      price: 130000,
-      quantity: 1,
-      imageUrl: "http://res.cloudinary.com/dqfhn7rw3/image/upload/v1742835830/kpuarjwxjr2qmp09gdje.jpg",
-    },
-    {
-      id: 2,
-      name: "Apple iPhone 15 Pro",
-      price: 145000,
-      quantity: 1,
-      imageUrl: "https://res.cloudinary.com/demo/image/upload/iphone15.jpg",
-    },
+    // {
+    //   id: 1,
+    //   name: "Samsung S25 Ultra",
+    //   price: 130000,
+    //   quantity: 1,
+    //   imageUrl: "http://res.cloudinary.com/dqfhn7rw3/image/upload/v1742835830/kpuarjwxjr2qmp09gdje.jpg",
+    // },
   ]);
 
   // Function to increase quantity
@@ -40,8 +36,28 @@ const CartPage = () => {
   // Calculate total price
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+  const getCartItemsCount = async() => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.get("http://localhost:3000/user/getCartItems", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+      setCartItems(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getCartItemsCount();
+  },[]);
+
   return (
     <div className="cart-container">
+      <CustomNavbar />
       <h2>Shopping Cart</h2>
       {cartItems.length === 0 ? (
         <h3>Your cart is empty!</h3>
@@ -50,16 +66,16 @@ const CartPage = () => {
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.id} className="cart-item">
-                <img src={item.imageUrl} alt={item.name} className="cart-image" />
+                <img src={item.productImages[0]} alt={item.name} className="cart-image" />
                 <div className="cart-details">
-                  <h3>{item.name}</h3>
-                  <p>Price: ₹{item.price.toLocaleString()}</p>
+                  <h3>{item.productDetails.name}</h3>
+                  <p>Price: ₹{item.productDetails.price}</p>
                   <div className="quantity-control">
                     <button onClick={() => decreaseQuantity(item.id)}>-</button>
                     <span>{item.quantity}</span>
                     <button onClick={() => increaseQuantity(item.id)}>+</button>
                   </div>
-                  <p>Total: ₹{(item.price * item.quantity).toLocaleString()}</p>
+                  <p>Total: {(item.productDetails.price)}</p>
                   <button className="remove-btn" onClick={() => removeItem(item.id)}>Delete</button>
                 </div>
               </div>

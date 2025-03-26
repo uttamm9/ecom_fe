@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Navbar from "./navbar"
+import CustomNavbar from "./Navbar";
 import "./singleProductPage.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const SingleProductPage = () => {
   console.log(product.product_id);
   return (
     <div className="container">
-      <Navbar islogin={true} />
+      <CustomNavbar islogin={true} />
       {/* Product Images */}
       <div className="image-gallery">
         {product.imageUrl?.map((img, index) => (

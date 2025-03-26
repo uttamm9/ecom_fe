@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from './navbar';
+import CustomNavbar from './Navbar';
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <>
     <div>
-   <Navbar />
+   <CustomNavbar />
    </div>
     <div
       style={{

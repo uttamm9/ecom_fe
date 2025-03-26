@@ -33,6 +33,23 @@ const supplierdashboard = () => {
     getproducts()
   }, [])
 
+  const handledelete = async(productId) => {
+    const token = localStorage.getItem('token')
+    console.log(productId)
+    try {
+      const response = await axios.delete(`http://localhost:3000/supplier/deleteproduct/${productId}`, {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
+      console.log(response.data)
+      alert(response.data.message)
+      getproducts()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const editproductAPI = async() => {
     const token = localStorage.getItem('token')
     try {
@@ -102,7 +119,8 @@ const supplierdashboard = () => {
               <td>
                 <button onClick={()=>{setModule(true),setEditProduct(product)}} 
                 style={{ backgroundColor: 'green', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} >Edit</button>
-                <button style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '5px' }}>Delete</button>
+                <button onClick={(e)=>handledelete(product._id)} 
+                style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '5px' }}>Delete</button>
               </td>
               </tr>
             )

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap"; // Import missing Bootstrap components
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-import CustomNavbar from "./Navbar";
+import CustomNavbar from "./navbar"; // Import your custom Navbar component
 
 const UserView = () => {
   const navigate = useNavigate();
@@ -48,17 +48,32 @@ const UserView = () => {
     }
   }
 
+  const addtowishlist = async (product_id) => {
+    const token = localStorage.getItem("token");
+    console.log(product_id);
+    setWishlist(!wishlist);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/user/addtowishlist",
+        { product_id, wishlist },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <CustomNavbar islogin={true} />
-      <div className="text-center my-3">
-        <Button variant="secondary" onClick={() => navigate("/updatepassword")}>
-          Update Password
-        </Button>
-      </div>
 
       <Container fluid className="mt-4">
-        <Row className="g-4">
+        <Row className="g-4 mt-5">
           {products.map((product, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3}>
               <Card className="shadow-sm border-0 rounded-4 h-100">
@@ -80,9 +95,10 @@ const UserView = () => {
                   </Button>
                   <div className="position-absolute top-0 end-0 m-2"
                   style={{ cursor: "pointer", fontSize: "1.5rem", color: "red" }}
-                   onClick={() => setWishlist(!wishlist)}
+                   onClick={() => { addtowishlist(product.product_id._id);}}
         >
-          {wishlist ? <BsHeartFill /> : <BsHeart />}
+          <BsHeart/>
+          {/* {wishlist ? <BsHeartFill /> : <BsHeart />} */}
         </div>
                 </Card.Body>
               </Card>

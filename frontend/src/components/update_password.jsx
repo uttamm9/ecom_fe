@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import CustomNavbar from './navbar';
 
 const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -33,6 +34,7 @@ const UpdatePassword = () => {
 
   return (
     <div style={{ height: '100vh', width: '1250px' }}>
+      <CustomNavbar islogin={true}/>
       <h2>Update Password</h2>
       <form onSubmit={handleSubmit}>
         <div>

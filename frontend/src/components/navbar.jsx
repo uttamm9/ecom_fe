@@ -12,11 +12,12 @@ const CustomNavbar = ({ islogin }) => {
     localStorage.clear();
     navigate("/");
   };
+  const token = localStorage.getItem('token')
 
   return (
     <>
       {/* Bootstrap Navbar */}
-      <Navbar bg="dark" variant="dark" expand="lg" className="px-3">
+      <Navbar bg="dark" variant="dark" expand="lg" className="px-3" style={{zIndex:'1'}}>
         <Container fluid>
           {/* Sidebar Toggle Button */}
           <Button variant="outline-light" onClick={() => setShowSidebar(true)} className="me-2">
@@ -35,9 +36,14 @@ const CustomNavbar = ({ islogin }) => {
 
           {/* Cart & Login/Logout Buttons */}
           <Nav>
-            <Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
+            {token?(<Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
+              <BsCart size={20} />  Cart
+            </Button>):(
+              <Button variant="outline-light" className="me-2" onClick={() => navigate("/")}>
               <BsCart size={20} />  Cart
             </Button>
+            )}
+            
             {islogin ? (
               <Button variant="danger" onClick={handleLogout}>🚪 Logout</Button>
             ) : (
@@ -57,8 +63,11 @@ const CustomNavbar = ({ islogin }) => {
             <Nav.Link href="#" className="py-2" onClick={()=>navigate('/userview')}>🏠 Home</Nav.Link>
             <Nav.Link href="#" className="py-2">📦 Products</Nav.Link>
             <Nav.Link href="#" className="py-2">🛒 Orders</Nav.Link>
-            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>
-            <Nav.Link href="#" className="py-2">💖 WishList</Nav.Link>
+            {token ? (<Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>):(<Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🛒 Cart</Nav.Link>)}
+            
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/wishlist')}>💖 WishList</Nav.Link>
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/updatepassword')}>🔑 Update Password</Nav.Link>
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/address')}> 🛣️Addresses</Nav.Link>
             <Nav.Link href="#" className="py-2">⚙️ Settings</Nav.Link>
           </Nav>
         </Offcanvas.Body>

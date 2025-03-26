@@ -10,6 +10,8 @@ import SupplierDashboard from './components/supplierdashboard'
 import AddProduct from './components/addproduct'
 import Single from './components/singleProductPage'
 import AddToCart from './components/addTocart'
+import Wishlist from './components/wishlist'
+import Address from './components/address'
 function App() {
   
   return (
@@ -25,6 +27,8 @@ function App() {
       <Route path='/addproduct' element={<AddProduct/>}/>
       <Route path='/showSingleProdut/:id' element={<Single/>}/>
       <Route path='/cart' element={<AddToCart/>}/>
+      <Route path='/wishlist' element={<Wishlist/>}/>
+      <Route path='/address' element={<Address/>}/>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
    </BrowserRouter>

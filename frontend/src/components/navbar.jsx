@@ -1,36 +1,70 @@
-import React from 'react';
-import './navbar.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Navbar, Container, Nav, Button, Offcanvas, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { BsList, BsCart } from "react-icons/bs"; // Bootstrap icons
+import "./navbar.css"; // Keep your CSS for additional styling
 
-const Navbar = ({islogin}) => {
-  console.log(islogin);
+const CustomNavbar = ({ islogin }) => {
+  const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/');
-   
+    navigate("/");
   };
+
   return (
     <>
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <img src="/path/to/brandlogo.png" alt="Brand Logo" className="brand-logo" />
-      </div>
-      <div className="navbar-search">
-        <input type="text" placeholder="Search..." className="search-box" />
-      </div>
-      <div className="navbar-actions">
-        {islogin ? (
-          <button className="login-logout-btn" onClick={handleLogout}>logout</button>
-        ) : (
-          <button className="login-logout-btn">login</button>
-        )}
-        
-        <button className="cart-btn" >Cart</button>
-      </div>
-    </nav>
+      {/* Bootstrap Navbar */}
+      <Navbar bg="dark" variant="dark" expand="lg" className="px-3">
+        <Container fluid>
+          {/* Sidebar Toggle Button */}
+          <Button variant="outline-light" onClick={() => setShowSidebar(true)} className="me-2">
+            <BsList size={24} />
+          </Button>
+
+          {/* Brand Logo */}
+          <Navbar.Brand href="#">
+            <img src="/path/to/brandlogo.png" alt="Brand Logo" style={{ height: "40px" }} />
+          </Navbar.Brand>
+
+          {/* Search Bar */}
+          <Form className="d-flex mx-auto">
+            <Form.Control type="search" placeholder="Search..." className="me-2" />
+          </Form>
+
+          {/* Cart & Login/Logout Buttons */}
+          <Nav>
+            <Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
+              <BsCart size={20} />  Cart
+            </Button>
+            {islogin ? (
+              <Button variant="danger" onClick={handleLogout}>🚪 Logout</Button>
+            ) : (
+              <Button variant="success" onClick={()=>navigate('/')}>🔑 Login</Button>
+            )}
+          </Nav>
+        </Container>
+      </Navbar>
+
+      {/* Sidebar Offcanvas */}
+      <Offcanvas show={showSidebar} onHide={() => setShowSidebar(false)} backdrop="static">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>📋 Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="flex-column">
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/userview')}>🏠 Home</Nav.Link>
+            <Nav.Link href="#" className="py-2">📦 Products</Nav.Link>
+            <Nav.Link href="#" className="py-2">🛒 Orders</Nav.Link>
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>
+            <Nav.Link href="#" className="py-2">💖 WishList</Nav.Link>
+            <Nav.Link href="#" className="py-2">⚙️ Settings</Nav.Link>
+          </Nav>
+        </Offcanvas.Body>
+      </Offcanvas>
     </>
   );
 };
 
-export default Navbar;
+export default CustomNavbar;

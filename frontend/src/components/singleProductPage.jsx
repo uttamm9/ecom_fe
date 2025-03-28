@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import CustomNavbar from "./Navbar";
+import CustomNavbar from "./navbar";
 import "./singleProductPage.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +31,26 @@ const SingleProductPage = () => {
     getSingleProduct();
   }, []);
 
+  const addtocart = async (product_id) => {
+  
+    const token = localStorage.getItem("token");
+    console.log(product_id);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/user/addtocart",
+        { product_id },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   if (!product) return <h2>Loading...</h2>;
   console.log(product.product_id);
   return (
@@ -54,7 +74,7 @@ const SingleProductPage = () => {
         </p>
 
         <button className="buy-now">Buy Now</button>
-        <button className="add-to-cart"  >Add to Cart</button>
+        <button className="add-to-cart" onClick={(e)=>addtocart(product.product_id)} >Add to Cart</button>
       </div>
 
       {/* Supplier Details */}

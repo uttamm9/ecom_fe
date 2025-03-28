@@ -89,7 +89,7 @@ const UserView = () => {
                 </div>
                 <Card.Body className="text-center">
                   <Card.Title className="fw-bold text-truncate">{product.product_id.name}</Card.Title>
-                  <Card.Text className="text-muted">${product.product_id.price}</Card.Text>
+                  <Card.Text className="text-muted">₹{product.product_id.price}</Card.Text>
                   <Button variant="primary" className="w-100 rounded-pill" onClick={() => addtocart(product.product_id._id)}>
                     Add to Cart
                   </Button>

@@ -3,31 +3,72 @@ import axios from "axios";
 import CustomNavbar from "./navbar";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "./AddToCart.css";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate()
 
   // Function to increase quantity
-  const increaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
+  const increaseQuantity = async(id) => {
+    console.log(id)
+    const token = localStorage.getItem('token')
+    try {
+      const response = await axios.patch('http://localhost:3000/user/increseitem',{id},{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization': `Bearer ${token}`
+        }
+      })
+      getCartItemsCount();
+    } catch (error) {
+      alert(error.response.data.message)
+    }
   };
 
   // Function to decrease quantity
-  const decreaseQuantity = (id) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    ));
+  const decreaseQuantity = async(id,quantity) => {
+    console.log(id)
+    console.log("minimum>>",quantity)
+    if(quantity>1){
+
+    
+    const token = localStorage.getItem('token')
+    try {
+      const response = await axios.patch('http://localhost:3000/user/decreseitem',{id},{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization': `Bearer ${token}`
+        }
+      })
+      getCartItemsCount();
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
   };
 
   // Function to remove an item from cart
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+  const removeItem = async(id) => {
+    console.log(id)
+    const token = localStorage.getItem('token')
+    try {
+      const response = await axios.delete(`http://localhost:3000/user/deletecartitem/${id}`,{
+        headers:{
+          authorization:`Bearer ${token}`
+        }
+      })
+      console.log(response.data.message)
+      getCartItemsCount();
+    } catch (error) {
+      
+    }
   };
 
   // Calculate total price
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.productDetails.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce((acc, item) => acc + parseInt(item.productDetails.price) * item.quantity, 0);
+  // console.log(`>>>>>totalPrice`,totalPrice);
+  
 
   const getCartItemsCount = async () => {
     const token = localStorage.getItem("token");
@@ -37,7 +78,7 @@ const CartPage = () => {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
+      // console.log(`>>>>>>`,response.data[0].productDetails);
       setCartItems(response.data);
     } catch (error) {
       console.log(error);
@@ -48,8 +89,15 @@ const CartPage = () => {
     getCartItemsCount();
   }, []);
 
+  const totalValue = cartItems.map((item) => (
+    parseInt(item.productDetails.price) * (2)
+  ))
+  // console.log(`>>>>totalValue`,totalValue);
+  
+
+
   return (
-    <Container className="mt-4">
+    <Container className="mt-5">
       <CustomNavbar islogin={localStorage.getItem("token")}/>
       <h2 className="text-center">Shopping Cart</h2>
 
@@ -72,12 +120,12 @@ const CartPage = () => {
                     <Card.Title className="fw-bold text-truncate">{item.productDetails.name}</Card.Title>
                     <Card.Text className="text-muted">Price: ₹{item.productDetails.price}</Card.Text>
                     <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-                      <Button variant="outline-primary" size="sm" onClick={() => decreaseQuantity(item.id)}>-</Button>
+                      <Button variant="outline-primary" size="sm" onClick={() => {decreaseQuantity(item._id,item.quantity)}}>-</Button>
                       <span className="fw-bold">{item.quantity}</span>
-                      <Button variant="outline-primary" size="sm" onClick={() => increaseQuantity(item.id)}>+</Button>
+                      <Button variant="outline-primary" size="sm" onClick={() => {increaseQuantity(item._id)}}>+</Button>
                     </div>
-                    <Card.Text className="fw-bold">Total: ₹{item.productDetails.price * item.quantity}</Card.Text>
-                    <Button variant="danger" size="sm" onClick={() => removeItem(item.id)}>Delete</Button>
+                    <Card.Text className="fw-bold">Total: ₹{parseInt(item.productDetails.price) * item.quantity}</Card.Text>
+                    <Button variant="danger" size="sm" onClick={() => removeItem(item._id)}>Delete</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -87,7 +135,7 @@ const CartPage = () => {
           {/* Total Price Section */}
           <div className="text-center mt-4">
             <h3>Total Price: ₹{totalPrice.toLocaleString()}</h3>
-            <Button variant="success" size="lg" className="mt-2">Proceed to Checkout</Button>
+            <Button variant="success" size="lg" className="mt-2" onClick={()=>navigate('/checkout')}>Proceed to Checkout</Button>
           </div>
         </>
       )}

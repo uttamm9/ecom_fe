@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 const AddProduct = () => {
+  const navigate =useNavigate()
   const [product, setProduct] = useState({
     name: '',
     price: '',
@@ -46,6 +48,7 @@ const AddProduct = () => {
       });
       console.log(response.data);
       alert(response.data.message);
+      navigate('/supplierdashboard')
     } catch (error) {
       console.log(error);
       alert('Internal server error');

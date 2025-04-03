@@ -85,9 +85,10 @@ const supplierdashboard = () => {
       </div>
       <div>
         <button onClick={()=>navigate('/addproduct')} style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Add products +</button>
+        <button onClick={()=>navigate('/myorders')} style={{ padding: '10px 20px', backgroundColor: '#127cff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', margin:'3px' }}>My orders</button>
         <hr />
       </div>
-      <div >All products</div>
+
       <div style={{ padding: '20px',display: 'flex', justifyContent: 'center', }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: '0', border: '1px solid #ddd', textAlign: 'center' }}>
         <thead>

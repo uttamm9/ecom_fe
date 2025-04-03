@@ -51,7 +51,7 @@ const Checkout = () => {
 
   return (
     <>
-      <CustomNavbar islogin={!!token} />
+      <CustomNavbar islogin={token} />
       <Container className="mt-5">
         <Row className="justify-content-center">
           <Col md={8}>

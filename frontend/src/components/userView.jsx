@@ -72,7 +72,7 @@ const UserView = () => {
     <>
       <CustomNavbar islogin={true} />
 
-      <Container fluid className="mt-4">
+      <Container fluid style={{marginTop:'70px'}}>
         <Row className="g-4 mt-5">
           {products.map((product, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3}>
@@ -81,7 +81,7 @@ const UserView = () => {
                   <Link to={`/showSingleProdut/${product._id}`}>
                   <Card.Img
                     variant="top"
-                    src={product.imageUrl[0]}
+                    src={product.imageUrl[3]}
                     alt={product.product_id.name}
                     style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "cover" }}
                   />

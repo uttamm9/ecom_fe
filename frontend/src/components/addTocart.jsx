@@ -99,13 +99,13 @@ const CartPage = () => {
   return (
     <Container className="mt-5">
       <CustomNavbar islogin={localStorage.getItem("token")}/>
-      <h2 className="text-center">Shopping Cart</h2>
+      <h2 className="text-center mt-3">Shopping Cart</h2>
 
       {cartItems.length === 0 ? (
-        <h3 className="text-center text-muted">Your cart is empty!</h3>
+        <h3 className="text-center text-muted" style={{marginTop:'120px'}}>Your cart is empty!</h3>
       ) : (
         <>
-          <Row className="g-4">
+          <Row className="g-4" style={{width:"100%"}}>
             {cartItems.map((item) => (
               <Col key={item.id} xs={12} md={6} lg={4}>
                 <Card className="shadow-sm border-0 rounded-4 h-100">

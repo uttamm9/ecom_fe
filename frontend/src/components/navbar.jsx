@@ -62,7 +62,7 @@ const CustomNavbar = ({ islogin }) => {
           <Nav className="flex-column">
             <Nav.Link href="#" className="py-2" onClick={()=>navigate('/userview')}>🏠 Home</Nav.Link>
             <Nav.Link href="#" className="py-2">📦 Products</Nav.Link>
-            <Nav.Link href="#" className="py-2">🛒 Orders</Nav.Link>
+            <Nav.Link href="#" className="py-2" onClick={(()=>navigate('/userorders'))}>🛒 Orders</Nav.Link>
             {token ? (<Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>):(<Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🛒 Cart</Nav.Link>)}
             
             <Nav.Link href="#" className="py-2" onClick={()=>navigate('/wishlist')}>💖 WishList</Nav.Link>

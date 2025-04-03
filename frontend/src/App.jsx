@@ -13,6 +13,7 @@ import AddToCart from './components/addTocart'
 import Wishlist from './components/wishlist'
 import Address from './components/address'
 import Checkout from './components/checkout'
+import UserOrders from './components/userorders'
 function App() {
   
   return (
@@ -31,6 +32,8 @@ function App() {
       <Route path='/wishlist' element={<Wishlist/>}/>
       <Route path='/address' element={<Address/>}/>
       <Route path='/checkout' element={<Checkout/>}/>
+      <Route path='/userorders' element={<UserOrders/>}/>
+      
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
    </BrowserRouter>

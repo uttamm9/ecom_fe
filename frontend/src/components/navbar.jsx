@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, Button, Offcanvas, Form } from "react-bootstrap
 import { useNavigate } from "react-router-dom";
 import { BsList, BsCart } from "react-icons/bs"; // Bootstrap icons
 import "./navbar.css"; // Keep your CSS for additional styling
-
+import brandlogo from "../assets/ecomlogo.png"; // Import your brand logo
 const CustomNavbar = ({ islogin }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const CustomNavbar = ({ islogin }) => {
 
           {/* Brand Logo */}
           <Navbar.Brand href="#">
-            <img src="/path/to/brandlogo.png" alt="Brand Logo" style={{ height: "40px" }} />
+            <img src={brandlogo} alt="Brand Logo" style={{ height: "40px" }} />
           </Navbar.Brand>
 
           {/* Search Bar */}

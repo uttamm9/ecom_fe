@@ -7,7 +7,6 @@ const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const color = localStorage.getItem('color');
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,39 +32,48 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '1250px' }}>
-      <CustomNavbar islogin={true}/>
-      <h2>Update Password</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Current Password:</label>
-          <input
-            type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            required
-          />
+    <div>
+      <CustomNavbar islogin={true} />
+      <h2 className="text-center my-4">Update Password</h2>
+      <div className="d-flex justify-content-center">
+        <div className="card p-4" style={{ width: '400px' }}>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Current Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">New Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Confirm New Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-primary w-100">
+              Update Password
+            </button>
+          </form>
         </div>
-        <div>
-          <label>New Password:</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm New Password:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Update Password</button>
-      </form>
+      </div>
     </div>
   );
 };

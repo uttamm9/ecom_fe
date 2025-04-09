@@ -69,15 +69,17 @@ const UserOrders = () => {
                 <p style={{ margin: "0 0 5px", color: "#777" }}>Delivery to: {order.addressDetails.city}</p>
               </div>
               <div>
-                <select 
-                  onChange={(e) => handleOrderAction(order._id, e.target.value)}
-                  defaultValue=""
-                  style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc", cursor: "pointer" }}
-                >
-                  <option value="" disabled>Select Action</option>
-                  <option value="cancel">Cancel</option>
-                  <option value="return">Return</option>
-                </select>
+               {order.status === 'innciet'?(
+                <button style={{color:'red'}}
+                 value='cancel' onClick={(e)=>handleOrderAction(order._id,e.target.value)}>Cancle</button>
+               ):null}
+               {order.status === 'packege'?(
+                <button style={{color:'royalblue'}} >Proccesing</button>
+               ):null}
+               {order.status === 'cancel'?(
+                <button style={{color:'orange'}} >order canceled</button>
+               ):null}
+               
               </div>
             </div>
           ))

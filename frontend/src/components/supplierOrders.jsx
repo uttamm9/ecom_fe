@@ -25,6 +25,29 @@ const supplierOrders = () => {
     window.location.href = "/"; // Redirect to login page
   };
 
+  const handleAction = async (orderId,value) => {
+    console.log(orderId,value)
+    try {
+      try {
+        const response = await axios.patch("http://localhost:3000/supplier/orderAction", { _id: orderId, status: value }, {
+          headers: { authorization: `Bearer ${token}` },
+        });
+        if (response.status === 200) {
+          console.log("Order updated successfully:", response.data);
+        } else {
+          console.error("Unexpected response:", response);
+        }
+        console.log(response.data);
+        getMyOrders(); // Refresh orders after cancellation
+      } catch (error) {
+        console.error("Error updating order:", error.response ? error.response.data : error.message);
+      }
+     
+    } catch (error) {
+      console.error("Error cancelling order:", error);
+    }
+  }
+
   return (
     <>
     <div style={{ 
@@ -70,7 +93,26 @@ const supplierOrders = () => {
                 <p>Product Name: {order.productId.name}</p>
                 <p>Quantity: {order.quantity}</p>
                 <p>Total Price: ₹{order.productId.price*order.quantity}</p>
-                <button style={{backgroundColor:"#28a745", color:"#fff", padding:"10px 20px", border:"none", borderRadius:"5px"}}>Mark as Shipped</button>
+                <p>Status: {order.status}</p>
+                <select name="" id="" onChange={(e)=>handleAction(order._id,e.target.value)} style={{padding:"10px", borderRadius:"5px", border:"1px solid #ddd"}}>
+                    <option value="">Action</option>
+                   {order.status === "innciet" ? (
+                     <>
+                       <option value="cancel">Cancel</option>
+                       <option value="packege">packege</option>
+                     </>
+                   ) : null}
+                   {order.status === 'cancel'?(
+                    <option>Order cancled</option>
+                   ):null}
+                   {order.status === 'packege'?(
+                    <option value="deliver">deliver</option>
+                   ):null}
+{/*                    
+                   
+                    <option value="delivered">Delivered</option>
+                    <option value="returned">Returned</option> */}
+                </select>
             </div>
         ))}
         {/* Example order structure ends */}
@@ -79,7 +121,7 @@ const supplierOrders = () => {
     <div style={{height:"100px"}}></div>
     {/* Footer or other components can go here */}
     <footer style={{textAlign:"center", padding:"20px", backgroundColor:"#f8f9fa", position:"fixed", bottom:"0", width:"100%"}}>
-        <p>&copy; 2023 Your Company. All rights reserved.</p> 
+        <p>&copy; 2025 E-com. All rights reserved.</p> 
     </footer>
     
     </>

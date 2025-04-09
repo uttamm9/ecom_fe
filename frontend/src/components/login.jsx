@@ -39,9 +39,7 @@ const Login = () => {
 
   return (
     <>
-    <div>
-   <CustomNavbar />
-   </div>
+    <div><CustomNavbar /></div>
     <div
       style={{
         background: "white",
@@ -52,7 +50,7 @@ const Login = () => {
         textAlign: "center",
         margin: "auto",
         fontFamily: "Arial, sans-serif",
-        marginTop: "2.2rem",
+        marginTop: "5.5rem",
       }}
     >
       <h2 style={{ color: "#333", marginBottom: "1rem" }}>Login</h2>

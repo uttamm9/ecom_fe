@@ -69,9 +69,9 @@ const Wishlist = () => {
 
   return (
     <Container className="mt-4">
-    <CustomNavbar />
-    <h2 className="text-center">My Wishlist</h2>
-    <Row className="g-4 justify-content-center"> 
+    <CustomNavbar islogin={localStorage.getItem('token')} />
+    <h2 className="text-center" style={{marginTop:"40px"}}>My Wishlist</h2>
+    <Row className="g-4 justify-content-center" style={{ marginTop: "20px" }}> 
       {wishlist.length > 0 ? (
         wishlist.map((product) => (
           <Col key={product.id} xs={12} sm={6} md={6} lg={10}> 

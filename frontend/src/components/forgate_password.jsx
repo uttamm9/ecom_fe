@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
+import CustomNavbar from './navbar'; // Import your custom Navbar component
 const ForgatePassword = () => {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [otp, setOtp] = useState('');
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (newPassword === confirmPassword) {
@@ -16,6 +18,7 @@ const ForgatePassword = () => {
       const res = await axios.patch('http://localhost:3000/user/forgetPassword', { email, newPassword, otp });
       console.log(res);
       alert(res.data.message);
+      navigate('/login');
       } catch (err) {
       console.log(err);
       alert(err.response.data.message);
@@ -37,7 +40,9 @@ const getOTP = async()=>{
 }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
+    <>
+   <CustomNavbar islogin={token}/>
+    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', marginTop: '90px', backgroundColor: '#f9f9f9', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
       <h2 style={{ textAlign: 'center' }}>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '10px' }}>
@@ -80,6 +85,7 @@ const getOTP = async()=>{
         <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Reset Password</button>
       </form>
     </div>
+    </>
   );
 };
 

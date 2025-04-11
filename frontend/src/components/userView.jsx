@@ -31,6 +31,11 @@ const UserView = () => {
 
   const addtocart = async (product_id) => {
     const token = localStorage.getItem("token");
+    if(!token) {
+      alert("Please login to add items to the cart.");
+      navigate("/login");
+      return;
+    }
     console.log(product_id);
     try {
       const response = await axios.post(
@@ -50,6 +55,11 @@ const UserView = () => {
 
   const addtowishlist = async (product_id) => {
     const token = localStorage.getItem("token");
+    if(!token) {
+      alert("Please login to add items to the wishlist.");
+      navigate("/login");
+      return;
+    }
     console.log(product_id);
     setWishlist(!wishlist);
     try {
@@ -70,7 +80,7 @@ const UserView = () => {
 
   return (
     <>
-      <CustomNavbar islogin={true} />
+      <CustomNavbar islogin={localStorage.getItem('token')} />
 
       <Container fluid style={{marginTop:'70px'}}>
         <Row className="g-4 mt-5">

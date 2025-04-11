@@ -31,7 +31,7 @@ const SupplierSignUp = () => {
       const response = await axios.post('http://localhost:3000/supplier/supplierSignup', formData);
       console.log(response);
       alert(response.data.message);
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }

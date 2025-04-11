@@ -25,7 +25,7 @@ const Login = () => {
       localStorage.setItem('name', res.data.username);
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       if(res.data.role === 'user'){
-        navigate('/userview');
+        navigate('/');
       } else if(res.data.role === 'supplier'){ 
         console.log('Supplier',res.data);
         navigate('/supplierdashboard');

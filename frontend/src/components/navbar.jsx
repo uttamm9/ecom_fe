@@ -26,7 +26,7 @@ const CustomNavbar = ({ islogin }) => {
 
           {/* Brand Logo */}
           <Navbar.Brand href="#">
-            <img src={brandlogo} alt="Brand Logo" style={{ height: "40px" }} />
+            <img src={brandlogo} alt="Brand Logo" style={{ height: "40px" }} onClick={()=>navigate('/')} />
           </Navbar.Brand>
 
           {/* Search Bar */}
@@ -47,7 +47,7 @@ const CustomNavbar = ({ islogin }) => {
             {islogin ? (
               <Button variant="danger" onClick={handleLogout}>🚪 Logout</Button>
             ) : (
-              <Button variant="success" onClick={()=>navigate('/')}>🔑 Login</Button>
+              <Button variant="success" onClick={()=>navigate('/login')}>🔑 Login</Button>
             )}
           </Nav>
         </Container>
@@ -60,7 +60,7 @@ const CustomNavbar = ({ islogin }) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
-            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/userview')}>🏠 Home</Nav.Link>
+            <Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🏠 Home</Nav.Link>
             <Nav.Link href="#" className="py-2">📦 Products</Nav.Link>
             <Nav.Link href="#" className="py-2" onClick={(()=>navigate('/userorders'))}>🛒 Orders</Nav.Link>
             {token ? (<Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>):(<Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🛒 Cart</Nav.Link>)}

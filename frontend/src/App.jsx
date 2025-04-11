@@ -20,12 +20,12 @@ function App() {
   return (
    <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Login />}/>
+      <Route path="/" element={<UserView/>}/>
+      <Route path="/login" element={<Login />}/>
       <Route path="/usersignup" element={<UserSignUp />}/>
       <Route path="/suppliersignup" element={<SupplierSignUp />}/>
       <Route path="/forgetpassword" element={<ForgatePassword/>}/>
       <Route path="/updatepassword" element={<UpdatePassword/>}/>
-      <Route path="/userview" element={<UserView/>}/>
       <Route path="/supplierdashboard" element={<SupplierDashboard/>}/>
       <Route path='/addproduct' element={<AddProduct/>}/>
       <Route path='/showSingleProdut/:id' element={<Single/>}/>

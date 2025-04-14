@@ -91,7 +91,7 @@ const UserView = () => {
                   <Link to={`/showSingleProdut/${product._id}`}>
                   <Card.Img
                     variant="top"
-                    src={product.imageUrl[3]}
+                    src={product.imageUrl[1]}
                     alt={product.product_id.name}
                     style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "cover" }}
                   />

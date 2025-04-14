@@ -108,6 +108,9 @@ const supplierOrders = () => {
                    {order.status === 'packege'?(
                     <option value="deliver">deliver</option>
                    ):null}
+                   {order.status === 'deliver'?(
+                    <option value="delivered">delivered</option>
+                   ):null}
 {/*                    
                    
                     <option value="delivered">Delivered</option>

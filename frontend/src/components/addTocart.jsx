@@ -20,6 +20,10 @@ const CartPage = () => {
           'authorization': `Bearer ${token}`
         }
       })
+      console.log(response.data.message)
+      if(response.data.message != "Quantity increased by 1"){
+        alert(response.data.message)
+      }
       getCartItemsCount();
     } catch (error) {
       alert(error.response.data.message)

@@ -15,6 +15,7 @@ import Address from './components/address'
 import Checkout from './components/checkout'
 import UserOrders from './components/userorders'
 import SupplierOrders from './components/supplierOrders'
+import AdminDashboard from './components/AdminDashboard'
 function App() {
   
   return (
@@ -35,6 +36,7 @@ function App() {
       <Route path='/checkout' element={<Checkout/>}/>
       <Route path='/userorders' element={<UserOrders/>}/>
       <Route path="/supplierorder" element={< SupplierOrders/>}/>
+      <Route path='/admin' element={<AdminDashboard/>}/>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
    </BrowserRouter>

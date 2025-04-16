@@ -44,59 +44,129 @@ const AdminDashboard = () => {
   return (
     <Container fluid>
       <Row>
-        <Col >
-          
+        <Col>
         </Col>
         <Col md={15} className="p-0">
           <AdminNavbar />
 
-          <div className="p-4">
-            <h1 className="mb-4">eCommerce Dashboard</h1>
+          <div></div>
+          <div >
+            <div style={{  width: '100%' , border: '1px solid #ccc', padding: '10px', borderRadius: '5px'}}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', border: '1px solid #ccc', padding: '10px', borderRadius: '5px',marginTop:'0px'}}>
+                <div>ecommerce</div>
+                <div>🔃 📅 </div>
+              </div>
 
-            <div className="row mb-4">
-              <div className="col-md-4 mb-3">
-                <div className="bg-danger text-white p-3 rounded">
-                  <p>New Product</p>
-                  <h4>65.51k</h4>
-                  <small>↓ 0.4% Last Month</small>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%',height:'450px', border: '1px solid pink', padding: '10px', borderRadius: '5px'}}>
+                <div style={{width:'49%',border:'1px solid #ccc'}}>
+
+                <div style={{
+  width: '100%',
+  overflow: 'hidden',
+  height: '150px',
+  border: '1px solid red',
+  padding: '10px',
+  borderRadius: '5px',
+  position: 'relative'
+}}>
+  <div
+    style={{
+      display: 'flex',
+      width: 'fit-content',
+      animation: 'slide 20s linear infinite'
+    }}
+  >
+    {/* Duplicate the content for seamless loop */}
+    {[1, 2].map((_, repeatIndex) => (
+      <React.Fragment key={repeatIndex}>
+        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#ff4f7f', borderRadius: '5px', textAlign: 'center', padding: '10px' }}>
+          <h5>new roduct</h5>
+          <h4>60K</h4>
+          <span>↑ 12% last month</span>
+        </div>
+        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#5F6AF5' ,borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
+          <h5>wallet</h5>
+            <h4>₹90K</h4>
+            <span>↑ 5% last month</span>
+        </div>
+        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#2BBB93',borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
+          <h5>total sales</h5>
+          <h4>₹1.4M</h4>
+          <span>↓ 3% last month</span>
+        </div>
+      </React.Fragment>
+    ))}
+  </div>
+
+  <style>
+    {`
+      @keyframes slide {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+    `}
+  </style>
+</div>
+
+                  <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)', // 2 columns
+    gap: '15px', // spacing between grid items
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '5px'
+  }}
+>
+  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px' }}>
+    <h5>customers</h5>
+    <h4>12k</h4>
+    <span>↑ 11% last month</span>
+  </div>
+  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px'  }}>
+  <h5>orders</h5>
+  <h4>9k</h4>
+  <span>↓ 8% last month</span>
+  </div>
+  <div style={{ width: '100%', height: '125px', border: '1px solid green' , textAlign:'left', padding:'10px' }}>
+  <h5>revenue</h5>
+    <h4>₹122k</h4>
+    <span>↑ 6% last month</span>
+  </div>
+  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px'  }}>
+  <h5>expenses</h5>
+    <h4>₹34k</h4>
+    <span>↑ 7% last month</span>
+  </div>
+</div>
                 </div>
-              </div>
-              <div className="col-md-4 mb-3">
-                <div className="bg-success text-white p-3 rounded">
-                  <p>Total Sales</p>
-                  <h4>98.65M</h4>
-                  <small>↑ 25% Last Month</small>
-                </div>
-              </div>
-              <div className="col-md-4 mb-3">
-                <div className="bg-light p-3 rounded">
-                  <p>Customers</p>
-                  <h4>698k</h4>
-                  <small className="text-success">↑ 25% Last Month</small>
-                </div>
-              </div>
-              <div className="col-md-4 mb-3">
-                <div className="bg-light p-3 rounded">
-                  <p>Order</p>
-                  <h4>10.63k</h4>
-                  <small className="text-danger">↓ 0.5% Last Month</small>
-                </div>
-              </div>
-              <div className="col-md-4 mb-3">
-                <div className="bg-light p-3 rounded">
-                  <p>Revenue</p>
-                  <h4>$85420</h4>
-                  <small className="text-danger">↓ 2.1% Last Month</small>
-                </div>
-              </div>
-              <div className="col-md-4 mb-3">
-                <div className="bg-light p-3 rounded">
-                  <p>Expenses</p>
-                  <h4>$56874</h4>
-                  <small className="text-success">↑ 9% Last Month</small>
+
+                <div style={{width:'49%',border:'1px solid #ccc'}}>
+
+                  <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                    <div><h5>costing and profit</h5></div>
+                    <div>▢ ⁞</div>
+                  </div>
+
+                  <div>
+                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                      <h6>profit</h6>
+                      <div><span style={{color:'green'}}>94%↑</span> <span>7K</span> ⁞</div>
+                    </div>
+                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                    <h6>costing</h6>
+                    <div><span style={{color:'red'}}>54%↓</span> <span>5K</span> ⁞</div>
+                    </div>
+                  </div>
+                  <div>
+                    <Bar data={chartData} options={chartOptions} />
+                  </div>
                 </div>
               </div>
             </div>
+
+         
 
             <div className="bg-white p-4 rounded shadow-sm">
               <h5 className="mb-3">Costing & Profit</h5>

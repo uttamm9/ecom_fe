@@ -82,8 +82,8 @@ const UserView = () => {
     <>
       <CustomNavbar islogin={localStorage.getItem('token')} />
 
-      <Container fluid style={{marginTop:'70px'}}>
-        <Row className="g-4 mt-5">
+      <Container fluid >
+        <Row className="g-3 mt-1">
           {products.map((product, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3}>
               <Card className="shadow-sm border-0 rounded-4 h-100">

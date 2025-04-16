@@ -21,7 +21,9 @@ const Wishlist = () => {
       }
       );
       console.log(response.data);
-      setWishlist(wishlist.filter((item) => item.productDetails._id !== _id));
+      alert("Product removed from wishlist");
+      setWishlist(wishlist.filter((item) => item.productDetails._id !== product_id));
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +70,7 @@ const Wishlist = () => {
   },[])
 
   return (
-    <Container className="mt-4">
+    <Container fluid style={{width:"100%",padding:'0px',margin:'0px'}}>
     <CustomNavbar islogin={localStorage.getItem('token')} />
     <h2 className="text-center" style={{marginTop:"40px"}}>My Wishlist</h2>
     <Row className="g-4 justify-content-center" style={{ marginTop: "20px" }}> 

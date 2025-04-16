@@ -17,7 +17,7 @@ const CustomNavbar = ({ islogin }) => {
   return (
     <>
       {/* Bootstrap Navbar */}
-      <Navbar bg="dark" variant="dark" expand="lg" className="px-3" style={{zIndex:'1'}}>
+      <Navbar bg="dark" variant="dark" expand="lg" style={{zIndex:'1',top:'0',position:'sticky'}}>
         <Container fluid>
           {/* Sidebar Toggle Button */}
           <Button variant="outline-light" onClick={() => setShowSidebar(true)} className="me-2">
@@ -27,6 +27,7 @@ const CustomNavbar = ({ islogin }) => {
           {/* Brand Logo */}
           <Navbar.Brand href="#">
             <img src={brandlogo} alt="Brand Logo" style={{ height: "40px" }} onClick={()=>navigate('/')} />
+            <h4>hii.. {localStorage.getItem('name')}</h4>
           </Navbar.Brand>
 
           {/* Search Bar */}
@@ -34,34 +35,34 @@ const CustomNavbar = ({ islogin }) => {
             <Form.Control type="search" placeholder="Search..." className="me-2" />
           </Form>
 
-          {/* Cart & Login/Logout Buttons */}
-          <Nav>
-            {token?(<Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
-              <BsCart size={20} />  Cart
-            </Button>):(
-              <Button variant="outline-light" className="me-2" onClick={() => navigate("/")}>
-              <BsCart size={20} />  Cart
-            </Button>
-            )}
-            
-            {islogin ? (
-              <Button variant="danger" onClick={handleLogout}>🚪 Logout</Button>
-            ) : (
-              <Button variant="success" onClick={()=>navigate('/login')}>🔑 Login</Button>
-            )}
-          </Nav>
-        </Container>
-      </Navbar>
+                <Nav>
+                {token ? (
+                  <Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
+                  <BsCart size={20} /> Cart <span className="badge bg-danger">{localStorage.getItem('cartCount') || 0}</span>
+                  </Button>
+                ) : (
+                  <Button variant="outline-light" className="me-2" onClick={() => navigate("/")}>
+                  <BsCart size={20} /> Cart
+                  </Button>
+                )}
+                
+                {token ? (
+                  <Button variant="danger" onClick={handleLogout}>🚪 Logout</Button>
+                ) : (
+                  <Button variant="success" onClick={() => navigate('/login')}>🔑 Login</Button>
+                )}
+                </Nav>
+              </Container>
+              </Navbar>
 
-      {/* Sidebar Offcanvas */}
-      <Offcanvas show={showSidebar} onHide={() => setShowSidebar(false)} backdrop="static">
+              {/* Sidebar Offcanvas */}
+      <Offcanvas show={showSidebar} onHide={() => setShowSidebar(false)} backdrop="static" style={{width:'250px'}}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>📋 Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🏠 Home</Nav.Link>
-            <Nav.Link href="#" className="py-2">📦 Products</Nav.Link>
             <Nav.Link href="#" className="py-2" onClick={(()=>navigate('/userorders'))}>🛒 Orders</Nav.Link>
             {token ? (<Nav.Link href="#" className="py-2" onClick={()=>navigate('/cart')}>🛒 Cart</Nav.Link>):(<Nav.Link href="#" className="py-2" onClick={()=>navigate('/')}>🛒 Cart</Nav.Link>)}
             

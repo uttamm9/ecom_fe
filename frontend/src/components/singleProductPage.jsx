@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const SingleProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [inventory, setInventory] = useState(null);
   const navigate = useNavigate();
   const getSingleProduct = async () => {
     const token = localStorage.getItem("token");
@@ -21,7 +22,9 @@ const SingleProductPage = () => {
           },
         }
       );
-      setProduct(response.data);
+      setProduct(response.data.product);
+      setInventory(response.data.Inventory);
+      console.log(response.data.Inventory);
     } catch (error) {
       console.log(error);
     }
@@ -107,10 +110,10 @@ const SingleProductPage = () => {
             <p className="description">{product.product_id.description}</p>
             <p
               className={`availability ${
-                product.product_id.isAvailable ? "text-success" : "text-danger"
+                inventory<35 ? "text-danger" : "text-success"
               }`}
             >
-              {product.product_id.isAvailable ? "In Stock" : "Out of Stock"}
+              {inventory<35 ? `hurry up on ${inventory} left` : "Available"}
             </p>
 
             <button className="btn btn-success me-2">Buy Now</button>

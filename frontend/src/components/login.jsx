@@ -25,6 +25,7 @@ const Login = () => {
       localStorage.setItem('name', res.data.username);
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       if(res.data.role === 'user'){
+        localStorage.setItem('cartCount', res.data.cartCount);
         navigate('/');
       } else if(res.data.role === 'supplier'){ 
         console.log('Supplier',res.data);

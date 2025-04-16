@@ -101,9 +101,9 @@ const CartPage = () => {
 
 
   return (
-    <Container className="mt-5">
+    <Container fluid style={{width:"100%",padding:'0px',margin:'0px'}} className="bg-light">
       <CustomNavbar islogin={localStorage.getItem("token")}/>
-      <h2 className="text-center mt-3">Shopping Cart</h2>
+      <h2 className="text-center mt-1">Shopping Cart</h2>
 
       {cartItems.length === 0 ? (
         <h3 className="text-center text-muted" style={{marginTop:'120px'}}>Your cart is empty!</h3>
@@ -111,7 +111,7 @@ const CartPage = () => {
         <>
           <Row className="g-4" style={{width:"100%"}}>
             {cartItems.map((item) => (
-              <Col key={item.id} xs={12} md={6} lg={4}>
+              <Col key={item._id} xs={12} md={6} lg={3}>
                 <Card className="shadow-sm border-0 rounded-4 h-100">
                   <Card.Img
                     variant="top"
@@ -121,7 +121,7 @@ const CartPage = () => {
                     style={{ height: "200px", objectFit: "cover" }}
                   />
                   <Card.Body className="text-center">
-                    <Card.Title className="fw-bold text-truncate">{item.productDetails.name}</Card.Title>
+                    <Card.Title className="fw-bold text-truncate">{item.productDetails.name.slice(0,20)}...</Card.Title>
                     <Card.Text className="text-muted">Price: ₹{item.productDetails.price}</Card.Text>
                     <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
                       <Button variant="outline-primary" size="sm" onClick={() => {decreaseQuantity(item._id,item.quantity)}}>-</Button>

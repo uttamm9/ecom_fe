@@ -1,13 +1,32 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+import { Bar, Line, Pie, Doughnut, Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  RadarController,
+  RadialLinearScale,
   Tooltip,
   Legend,
 } from 'chart.js';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  RadarController,
+  RadialLinearScale,
+  Tooltip,
+  Legend
+);
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import AdminNavbar from './AdminNavbar';
@@ -16,6 +35,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 
 const AdminDashboard = () => {
+  const [customers,setCustomers] = useState([])
+  const [orders,setOrders]= useState([])
+  const [products,setProducts]= useState([])
+  const [suppliers, setSuppliers] = useState([])
   const chartData = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
@@ -41,6 +64,44 @@ const AdminDashboard = () => {
     },
   };
 
+  const getcustomers = async()=>{
+    try {
+      const response = await axios.get('http://localhost:3000/admin/allcustomers')
+      console.log(response.data)
+      setCustomers(response.data)
+    } catch (error) {
+      console.log(error.response.data.message)
+    }
+}
+
+const getAllorders = async()=>{
+  try {
+    const response = await axios.get('http://localhost:3000/admin/allorders')
+    console.log("all orders>>",response.data)
+    setOrders(response.data)
+
+    const product = await axios.get('http://localhost:3000/admin/allprodcuts')
+    console.log("all products>>",product.data)
+    setProducts(product.data)
+
+    const supplirer = await axios.get('http://localhost:3000/admin/allsupllier')
+    console.log("all suppliers>>",supplirer.data)
+    setSuppliers(suppliers.data)
+    
+  } catch (error) {
+    console.log("all orders error>>",error.response.data.message)
+  }
+}
+  useEffect(()=>{
+    getcustomers()
+    getAllorders()
+  },[])
+
+  const totalrevanue = orders.reduce((acc, order) => {
+    return acc + (order.productId.price * order.quantity);
+  }, 0);
+  
+  console.log("reavlanue", totalrevanue)
   return (
     <Container fluid>
       <Row>
@@ -51,20 +112,20 @@ const AdminDashboard = () => {
 
           <div></div>
           <div >
-            <div style={{  width: '100%' , border: '1px solid #ccc', padding: '10px', borderRadius: '5px'}}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', border: '1px solid #ccc', padding: '10px', borderRadius: '5px',marginTop:'0px'}}>
+            <div style={{  width: '100%' , padding: '10px', borderRadius: '5px'}}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '10px', borderRadius: '5px',marginTop:'0px'}}>
                 <div>ecommerce</div>
                 <div>🔃 📅 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%',height:'450px', border: '1px solid pink', padding: '10px', borderRadius: '5px'}}>
-                <div style={{width:'49%',border:'1px solid #ccc'}}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%',height:'450px',  padding: '10px', borderRadius: '5px'}}>
+                <div style={{width:'49%',}}>
 
                 <div style={{
   width: '100%',
   overflow: 'hidden',
   height: '150px',
-  border: '1px solid red',
+ 
   padding: '10px',
   borderRadius: '5px',
   position: 'relative'
@@ -79,19 +140,19 @@ const AdminDashboard = () => {
     {/* Duplicate the content for seamless loop */}
     {[1, 2].map((_, repeatIndex) => (
       <React.Fragment key={repeatIndex}>
-        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#ff4f7f', borderRadius: '5px', textAlign: 'center', padding: '10px' }}>
-          <h5>new roduct</h5>
-          <h4>60K</h4>
+        <div style={{ height: '138px', width: '180px', marginRight: '20px',  background: '#ff4f7f', borderRadius: '5px', textAlign: 'center', padding: '10px' }}>
+          <h5>new Product</h5>
+          <h4>{products.length}</h4>
           <span>↑ 12% last month</span>
         </div>
-        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#5F6AF5' ,borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
+        <div style={{ height: '138px', width: '180px', marginRight: '20px',  background: '#5F6AF5' ,borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
           <h5>wallet</h5>
             <h4>₹90K</h4>
             <span>↑ 5% last month</span>
         </div>
-        <div style={{ height: '150px', width: '180px', marginRight: '20px', border: '1px solid yellow', background: '#2BBB93',borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
+        <div style={{ height: '138px', width: '180px', marginRight: '20px',  background: '#2BBB93',borderRadius: '5px', textAlign: 'center', padding: '10px'  }}>
           <h5>total sales</h5>
-          <h4>₹1.4M</h4>
+          <h4>₹{totalrevanue}</h4>
           <span>↓ 3% last month</span>
         </div>
       </React.Fragment>
@@ -115,46 +176,46 @@ const AdminDashboard = () => {
     gap: '15px', // spacing between grid items
     width: '100%',
     padding: '10px',
-    border: '1px solid #ccc',
+    
     borderRadius: '5px'
   }}
 >
-  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px' }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px' }}>
     <h5>customers</h5>
-    <h4>12k</h4>
+    <h4>{customers.length}</h4>
     <span>↑ 11% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px'  }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px'  }}>
   <h5>orders</h5>
-  <h4>9k</h4>
+  <h4>{orders.length}</h4>
   <span>↓ 8% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px', border: '1px solid green' , textAlign:'left', padding:'10px' }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px' }}>
   <h5>revenue</h5>
-    <h4>₹122k</h4>
+    <h4>₹{totalrevanue}</h4>
     <span>↑ 6% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px', border: '1px solid green', textAlign:'left', padding:'10px'  }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px'  }}>
   <h5>expenses</h5>
-    <h4>₹34k</h4>
+    <h4>₹{orders.length*40}</h4>
     <span>↑ 7% last month</span>
   </div>
 </div>
                 </div>
 
-                <div style={{width:'49%',border:'1px solid #ccc'}}>
+                <div style={{width:'49%',}}>
 
-                  <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                  <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
                     <div><h5>costing and profit</h5></div>
                     <div>▢ ⁞</div>
                   </div>
 
                   <div>
-                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
                       <h6>profit</h6>
                       <div><span style={{color:'green'}}>94%↑</span> <span>7K</span> ⁞</div>
                     </div>
-                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',border:'1px solid #ccc',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',width:'100%',padding:'10px',borderRadius:'5px',paddingTop:'20px'}}>
                     <h6>costing</h6>
                     <div><span style={{color:'red'}}>54%↓</span> <span>5K</span> ⁞</div>
                     </div>
@@ -182,7 +243,7 @@ const AdminDashboard = () => {
                   <p>54k</p>
                 </div>
               </div>
-              <Bar data={chartData} options={chartOptions} />
+              <Line data={chartData} options={chartOptions} />
             </div>
           </div>
         </Col>

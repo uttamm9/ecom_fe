@@ -35,7 +35,7 @@ const CustomNavbar = ({ islogin }) => {
             <Form.Control type="search" placeholder="Search..." className="me-2" />
           </Form>
 
-                <Nav>
+                <Nav id="navbutton">
                 {token ? (
                   <Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
                   <BsCart size={20} /> Cart <span className="badge bg-danger">{localStorage.getItem('cartCount') || 0}</span>

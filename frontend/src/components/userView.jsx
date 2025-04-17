@@ -73,6 +73,7 @@ const UserView = () => {
         }
       );
       console.log(response.data);
+      alert("Product added to wishlist successfully!");
     } catch (error) {
       console.log(error);
     }

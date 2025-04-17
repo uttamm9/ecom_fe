@@ -93,18 +93,18 @@ const supplierdashboard = () => {
             return (
               <tr key={index}>
               <td>{index + 1}</td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
+              <td>{(product.productId.name).slice(0,20)}</td>
+              <td>{product.productId.price}</td>
               <td>{product.quantity}</td>
-              <td>{product.category}</td>
-              <td>{product.isAvailable ? 'Active' : 'Inactive'}</td>
-              <td>{product.brand}</td>
+              <td>{product.productId.category}</td>
+              <td>{product.productId.isDeleted ? 'Inctive' : 'active'}</td>
+              <td>{product.productId.brand}</td>
               <td>{product.rating?product.rating:'0'}</td>
               <td>
-                <button onClick={()=>{setModule(true),setEditProduct(product)}} 
-                style={{ backgroundColor: 'green', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} >Edit</button>
-                <button onClick={(e)=>handledelete(product._id)} 
-                style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '5px' }}>Delete</button>
+              <button onClick={()=>{setModule(true),setEditProduct(product)}} 
+              style={{ backgroundColor: 'green', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer' }} >Edit</button>
+              <button onClick={(e)=>handledelete(product._id)} 
+              style={{ backgroundColor: 'red', color: '#fff', padding: '5px 10px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '5px' }}>Delete</button>
               </td>
               </tr>
             )

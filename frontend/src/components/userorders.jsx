@@ -23,12 +23,12 @@ const UserOrders = () => {
     getMyOrders();
   }, []);
 
-  const handleOrderAction = async (orderId, action) => {
-    console.log(`Order ${orderId} selected action: ${action}`);
+  const handleOrderAction = async (_id, status) => {
+    console.log(`Order ${_id} selected action: ${status}`);
 
     // Example API request to update order status (uncomment when backend is ready)
     try {
-      await axios.put(`http://localhost:3000/user/order/${orderId}/update`, { action }, {
+      await axios.patch(`http://localhost:3000/supplier/orderAction`, { _id,status }, {
         headers: { authorization: `Bearer ${token}` },
       });
       getMyOrders(); // Refresh orders after action
@@ -40,7 +40,7 @@ const UserOrders = () => {
   return (
     <>
       <CustomNavbar islogin={token} />
-      <div style={{ maxWidth: "900px", margin: "80px auto 20px", padding: "20px" }}>
+      <div style={{ maxWidth: "900px", margin: "0px auto 20px", padding: "20px" }}>
         <h2>Your Orders</h2>
 
         {orders.length === 0 ? (
@@ -71,7 +71,7 @@ const UserOrders = () => {
               <div>
                {order.status === 'innciet'?(
                 <button style={{color:'red'}}
-                 value='cancel' onClick={(e)=>handleOrderAction(order._id,e.target.value)}>Cancle</button>
+                 value='cancel' onClick={(e)=>handleOrderAction(order._id,e.target.value)}>cancel</button>
                ):null}
                {order.status === 'packege'?(
                 <button style={{color:'royalblue'}} >Proccesing</button>
@@ -82,8 +82,11 @@ const UserOrders = () => {
                {order.status === 'deliver'?(
                 <button style={{color:'red'}} 
                 value = 'return' onClick={(e)=>handleOrderAction(order._id,e.target.value)}>Retrun</button>
-              
                ):null}
+               {order.status === 'return'?(
+                <button style={{color:'green'}} >Wait for approw</button>
+               ):null}
+               
               </div>
             </div>
           ))

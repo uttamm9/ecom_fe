@@ -88,16 +88,8 @@
     gap: 1rem;
   }
 
-  /* .navbar-search button {
-    padding: 0.5rem 1rem;
-    background-color: #f0c14b;
-    border: 1px solid #a88734;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  } */
-
-  /* .navbar-search button:hover {
-    background-color: #e2a917;
-} */
+  @media screen and ( max-width: 426px) {
+    #navbutton {
+      visibility: hidden;
+    }
+  }

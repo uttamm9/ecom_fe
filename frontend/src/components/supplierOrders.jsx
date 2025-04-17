@@ -2,6 +2,7 @@ import React from 'react'
 import CustomNavbar from './navbar'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import SupplierNavbar from './supplierNavbar'
 const supplierOrders = () => {
   const [orders, setOrders] = useState([]);
   const token = localStorage.getItem('token');
@@ -50,40 +51,7 @@ const supplierOrders = () => {
 
   return (
     <>
-    <div style={{ 
-  position: 'fixed', top: '0', width: '100%', background: '#007bff ', 
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '10px 20px', 
-  display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
-  zIndex: '1000' 
-}}>
-  {/* Left Section */}
-  <div style={{ color: 'white', fontSize: '16px' }}>
-    <span>Welcome, </span>
-    <h3 style={{ display: 'inline', fontWeight: 'bold' }}>
-      {localStorage.getItem('name')}
-    </h3>
-  </div>
-
-  {/* Center Section */}
-  <div style={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>
-    Amazon
-  </div>
-
-  {/* Right Section */}
-  <button 
-    onClick={handleLogout} 
-    style={{ 
-      backgroundColor: 'red', color: 'white', border: 'none', padding: '8px 15px', 
-      borderRadius: '5px', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold',
-      transition: 'background 0.3s'
-    }}
-    onMouseOver={(e) => e.target.style.backgroundColor = '#c0392b'}
-    onMouseOut={(e) => e.target.style.backgroundColor = 'red'}
-  >
-    Logout
-  </button>
-</div>
-
+    <SupplierNavbar/>
     <div style={{maxWidth:"900px", margin:"80px auto 20px", padding:"20px"}}>
         <h2>Your Orders</h2>
        <hr />
@@ -111,10 +79,12 @@ const supplierOrders = () => {
                    {order.status === 'deliver'?(
                     <option value="delivered">delivered</option>
                    ):null}
-{/*                    
-                   
-                    <option value="delivered">Delivered</option>
-                    <option value="returned">Returned</option> */}
+                    {order.status === 'return'?(
+                      <option value="returned">Approw return</option>
+                    ):null}
+                    {order.status === 'returned'?(
+                      <option>Returned</option>
+                    ):null}
                 </select>
             </div>
         ))}

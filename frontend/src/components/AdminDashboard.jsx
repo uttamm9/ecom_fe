@@ -46,11 +46,30 @@ const AdminDashboard = () => {
         label: 'Cost',
         data: [12, 19, 10, 22, 15, 30, 10],
         backgroundColor: 'rgba(93, 112, 255, 0.8)',
+        borderWidth: 2,
       },
       {
         label: 'Profit',
         data: [15, 20, 13, 25, 17, 35, 12],
         backgroundColor: 'rgba(115, 204, 255, 0.8)',
+      },
+    ],
+  };
+
+  const chartData1 = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        label: 'Cost',
+        data: [12, 19, 10, 22, 15, 30, 10],
+        backgroundColor: 'rgba(93, 112, 255, 0.8)',
+      
+      },
+      {
+        label: 'Profit',
+        data: [15, 20, 13, 25, 17, 35, 12],
+        backgroundColor: 'rgba(115, 204, 255, 0.8)',
+       
       },
     ],
   };
@@ -64,21 +83,18 @@ const AdminDashboard = () => {
     },
   };
 
-  const getcustomers = async()=>{
-    try {
-      const response = await axios.get('http://localhost:3000/admin/allcustomers')
-      console.log(response.data)
-      setCustomers(response.data)
-    } catch (error) {
-      console.log(error.response.data.message)
-    }
-}
+  
 
-const getAllorders = async()=>{
+
+const getAlldata = async()=>{
   try {
-    const response = await axios.get('http://localhost:3000/admin/allorders')
-    console.log("all orders>>",response.data)
-    setOrders(response.data)
+    const customer = await axios.get('http://localhost:3000/admin/allcustomers')
+    console.log("customers>>",customer.data)
+    setCustomers(customer.data)
+
+    const order = await axios.get('http://localhost:3000/admin/allorders')
+    console.log("all orders>>",order.data)
+    setOrders(order.data)
 
     const product = await axios.get('http://localhost:3000/admin/allprodcuts')
     console.log("all products>>",product.data)
@@ -93,8 +109,7 @@ const getAllorders = async()=>{
   }
 }
   useEffect(()=>{
-    getcustomers()
-    getAllorders()
+    getAlldata()
   },[])
 
   const totalrevanue = orders.reduce((acc, order) => {
@@ -180,22 +195,22 @@ const getAllorders = async()=>{
     borderRadius: '5px'
   }}
 >
-  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px' }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
     <h5>customers</h5>
     <h4>{customers.length}</h4>
     <span>↑ 11% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px'  }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'  }}>
   <h5>orders</h5>
   <h4>{orders.length}</h4>
   <span>↓ 8% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px' }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
   <h5>revenue</h5>
     <h4>₹{totalrevanue}</h4>
     <span>↑ 6% last month</span>
   </div>
-  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px'  }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'  }}>
   <h5>expenses</h5>
     <h4>₹{orders.length*40}</h4>
     <span>↑ 7% last month</span>
@@ -221,7 +236,7 @@ const getAllorders = async()=>{
                     </div>
                   </div>
                   <div>
-                    <Bar data={chartData} options={chartOptions} />
+                    <Bar data={chartData1} options={chartOptions} />
                   </div>
                 </div>
               </div>

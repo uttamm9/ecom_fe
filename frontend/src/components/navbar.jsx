@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, Container, Nav, Button, Offcanvas, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BsList, BsCart } from "react-icons/bs"; // Bootstrap icons
 import "./navbar.css"; // Keep your CSS for additional styling
 import brandlogo from "../assets/ecomlogo.png"; // Import your brand logo
-const CustomNavbar = ({ islogin }) => {
+import { CartContext } from "../context/cartcontext"; // Import your CartContext
+const CustomNavbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+  const { cartCount } = useContext(CartContext); // Use CartContext to get cart count
 
   const handleLogout = () => {
     localStorage.clear();
@@ -38,7 +40,7 @@ const CustomNavbar = ({ islogin }) => {
                 <Nav id="navbutton">
                 {token ? (
                   <Button variant="outline-light" className="me-2" onClick={() => navigate("/cart")}>
-                  <BsCart size={20} /> Cart <span className="badge bg-danger">{localStorage.getItem('cartCount') || 0}</span>
+                  <BsCart size={20} /> Cart <span className="badge bg-danger">{cartCount || 0}</span>
                   </Button>
                 ) : (
                   <Button variant="outline-light" className="me-2" onClick={() => navigate("/")}>

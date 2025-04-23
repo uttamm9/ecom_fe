@@ -30,6 +30,7 @@ ChartJS.register(
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import AdminNavbar from './AdminNavbar';
+import CustomerModal from './customermodel';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -39,6 +40,10 @@ const AdminDashboard = () => {
   const [orders,setOrders]= useState([])
   const [products,setProducts]= useState([])
   const [suppliers, setSuppliers] = useState([])
+  const [customerMOdal, setCustomerModal] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
+  const [productModal, setProductModal] = useState(false);
+  const [supplierModal, setSupplierModal] = useState(false);
   const chartData = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
@@ -195,11 +200,13 @@ const getAlldata = async()=>{
     borderRadius: '5px'
   }}
 >
-  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+  <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }} onClick={()=>setCustomerModal(true)}>
     <h5>customers</h5>
     <h4>{customers.length}</h4>
     <span>↑ 11% last month</span>
   </div>
+  <CustomerModal show={customerMOdal} handleClose={()=>setCustomerModal(false)} customers={customers}/>
+    
   <div style={{ width: '100%', height: '125px',  textAlign:'left', padding:'10px',  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'  }}>
   <h5>orders</h5>
   <h4>{orders.length}</h4>

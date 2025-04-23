@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap"; // Import missing Bootstrap components
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import CustomNavbar from "./navbar"; // Import your custom Navbar component
+import { CartContext } from "../context/cartcontext"; // Import your CartContext
 
 const UserView = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState(false);
+  
+  const {fetchCartCount } = useContext(CartContext); // Use CartContext to get cart count
 
   const getAllProducts = async () => {
     const token = localStorage.getItem("token");
@@ -48,6 +51,8 @@ const UserView = () => {
         }
       );
       console.log(response.data);
+      alert("Product added to cart successfully!");
+      fetchCartCount(); // Fetch the updated cart count after adding to cart
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +86,7 @@ const UserView = () => {
 
   return (
     <>
-      <CustomNavbar islogin={localStorage.getItem('token')} />
+      <CustomNavbar />
 
       <Container fluid >
         <Row className="g-3 mt-1">

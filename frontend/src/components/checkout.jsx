@@ -101,8 +101,10 @@ const Checkout = () => {
                           No saved addresses. Please add an address.
                         </td>
                       </tr>
+                      
                     )}
                   </tbody>
+                  <button className="btn btn-primary" style={{width:'100%'}} onClick={() => window.location.href = "/address"}>Add Address</button>
                 </table>
               </Card.Body>
             </Card>

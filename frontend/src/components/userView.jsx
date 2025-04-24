@@ -51,7 +51,7 @@ const UserView = () => {
         }
       );
       console.log(response.data);
-      alert("Product added to cart successfully!");
+      alert(response.data.message||"Product added to cart successfully!");
       fetchCartCount(); // Fetch the updated cart count after adding to cart
     } catch (error) {
       console.log(error);
